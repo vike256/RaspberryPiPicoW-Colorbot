@@ -7,7 +7,7 @@ from time import sleep
 from mss import mss
 
 
-## READING CONFIG START
+## Reading config
 config = configparser.ConfigParser()
 config.read("config.ini")
 
@@ -16,15 +16,17 @@ port = int(config.get('network', 'port'))
 
 color = config.get('screen', 'color')
 fov = int(config.get('screen', 'fov'))
+
 offset = int(config.get('aim', 'offset'))
 speed = float(config.get('aim', 'speed'))
 xMultiplier = float(config.get('aim', 'xMultiplier'))
+
 recoilX = float(config.get('recoil', 'recoilX'))
 recoilY = float(config.get('recoil', 'recoilY'))
-## READING CONFIG END
 
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
 
 sct = mss()
 screenshot = sct.monitors[1]
@@ -39,6 +41,7 @@ toggle_aim = True
 toggle_recoil = True
 toggle_trigger = True
 
+
 if color == 'g':
     upper_color = numpy.array([63,255,255])
     lower_color = numpy.array([58,210,80])
@@ -48,8 +51,7 @@ else:
 
 
 def move(x, y):
-
-    # Mouse.Move takes char (8 bytes) as input
+    # Mouse.Move takes char (8 bits) as input
     # 8bit signed value range is from -128 to 127
     max = 127
     if abs(x) > abs(max):
@@ -111,7 +113,7 @@ try:
                 closest_contour = None
                 min_distance = float('inf')
 
-                for contour in contours:
+                for contour in contours: # Get center of the closest contour
                     mouse = cv2.moments(contour)
                     cX = int(mouse["m10"] / mouse["m00"])
                     cY = int(mouse["m01"] / mouse["m00"])
