@@ -1,4 +1,5 @@
-Colorbot/aimbot for Raspberry Pi Pico W. Pico acts as a mouse and gets instructions from host machine through Wi-Fi. 
+Colorbot/aimbot for Raspberry Pi Pico W.  
+Pico acts as a mouse and gets instructions from host machine through Wi-Fi. 
 
 Hardware required:
 - Raspberry Pi Pico W
