@@ -7,7 +7,7 @@ import keybinds
 import mouse
 import screen
 import setup
-from key import key
+from keybinds import key
 
 
 def main():
