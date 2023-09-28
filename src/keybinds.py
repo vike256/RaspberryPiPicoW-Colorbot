@@ -2,17 +2,6 @@ import win32api as wapi
 from time import sleep
 import setup
 
-key = {
-    # Mouse
-    'lbutton': 0x01,
-    'rbutton': 0x02,
-
-    # Keyboard
-    'insert': 0x2D,
-    'rshift': 0xA1,
-    'rcontrol': 0xA3,
-    'rmenu': 0xA5,
-}
 
 def check(config):
     if wapi.GetAsyncKeyState(config['reloadConfigKey']) < 0:

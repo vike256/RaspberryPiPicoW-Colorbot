@@ -1,6 +1,6 @@
 import configparser
 from mss import mss
-from keybinds import key
+from key import key
 
 def read_config():
     configFile = configparser.ConfigParser()
