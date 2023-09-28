@@ -18,12 +18,12 @@ def move(x, y, client):
         waitForResponse(client)
 
 
-def click():
+def click(client):
     # Raspberry checks the first character to check if the instruction is to move (M) or click (C)
     command = "C\r"
     client.sendall(command.encode())
     print("SENT:Click", end='')
-    waitForResponse()
+    waitForResponse(client)
 
 
 def waitForResponse(client):
