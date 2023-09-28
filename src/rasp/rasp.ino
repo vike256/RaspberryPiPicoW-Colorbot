@@ -1,8 +1,8 @@
 #include <WiFi.h>
 #include <Mouse.h>
 
-const char* ssid = "moimeimai";
-const char* password = "yliopisto";
+const char* ssid = "WIFI_NAME";
+const char* password = "WIFI_PASSWORD";
 
 int port = 50123;
 int x = 0;
