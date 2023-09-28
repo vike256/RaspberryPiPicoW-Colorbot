@@ -6,7 +6,6 @@ import setup
 def check(config):
     if wapi.GetAsyncKeyState(config['reloadConfigKey']) < 0:
         config = setup.read_config()
-        sct, screenshot, center = setup.setup_mss(config)
         sleep(0.5)
 
     if wapi.GetAsyncKeyState(config['toggleAimKey']) < 0:

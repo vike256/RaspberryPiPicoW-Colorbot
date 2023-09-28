@@ -23,14 +23,21 @@ def read_config():
     config['toggleRecoilKey'] = int(key[configFile.get('keybinds', 'toggleRecoilKey')])
     config['toggleTriggerbotKey'] = int(key[configFile.get('keybinds', 'toggleTriggerbotKey')])
     config['reloadConfigKey'] = int(key[configFile.get('keybinds', 'reloadConfigKey')])
-    print(f"""Read config 
+
+    sct, screenshot, center = setup_mss(config)
+    config['sct'] = sct
+    config['screenshot'] = screenshot
+    config['center'] = center
+
+    print(f"""Config: 
 - Network: {config['ip']}:{config['port']}
 - Color: {config['color']}
 - FOV: {config['fov']}
 - Offset: {config['offset']}
 - Speed: {config['speed']}
 - xMultiplier: {config['xMultiplier']}
-- Recoil: ({config['recoilX']}, {config['recoilY']})""")
+- Recoil: ({config['recoilX']}, {config['recoilY']})
+Config read, all cheats defaulted to off.""")
     return config
 
 

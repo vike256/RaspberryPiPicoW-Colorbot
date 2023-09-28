@@ -12,7 +12,6 @@ from key import key
 
 def main():
     config = setup.read_config()
-    sct, screenshot, center = setup.setup_mss(config)
 
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -34,16 +33,16 @@ def main():
 
             # AIM if mouse left or right down
             if config['toggleAim'] and (wapi.GetAsyncKeyState(key['lbutton']) < 0 or wapi.GetAsyncKeyState(key['rbutton']) < 0):
-                contours = screen.screengrab(sct, screenshot, lower_color, upper_color)
+                contours = screen.screengrab(config['sct'], config['screenshot'], lower_color, upper_color)
 
                 if len(contours) != 0:
-                    closest_contour = screen.get_closest_target(contours, center)
+                    closest_contour = screen.get_closest_target(contours, config['center'])
                 
                     if closest_contour is not None:
                         cX, cY = closest_contour
 
-                        x = -(center[0] - cX) if cX < center[0] else cX - center[0]
-                        y = -(center[1] - cY) if cY < center[1] else cY - center[1]
+                        x = -(config['center'][0] - cX) if cX < config['center'][0] else cX - config['center'][0]
+                        y = -(config['center'][1] - cY) if cY < config['center'][1] else cY - config['center'][1]
                         x *= config['speed']
                         y *= config['speed'] / config['xMultiplier']
                         y += config['offset']
@@ -52,8 +51,7 @@ def main():
 
             # RECOIL
             if config['toggleRecoil'] and wapi.GetAsyncKeyState(key['lbutton']) < 0:
-                if config['recoilX'] != 0 or config['recoilY'] != 0: # Check to not send unnecessary instructions
-                    mouse.move(config['recoilX'], config['recoilY'], client)
+                mouse.move(config['recoilX'], config['recoilY'], client)
             
             sleep(0.001)     
 
