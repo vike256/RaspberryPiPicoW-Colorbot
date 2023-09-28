@@ -11,6 +11,8 @@ from key import key
 
 
 def main():
+    previousX = 0
+    previousY = 0
     config = setup.read_config()
 
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -39,6 +41,14 @@ def main():
                         x *= config['speed']
                         y *= config['speed'] / config['xMultiplier']
                         y += config['offset']
+
+                        #Smoothing
+                        x = previousX + config['smooth'] * (x - previousX)
+                        y = previousY + config['smooth'] * (y - previousY)
+                        x = np.floor(x + 0.5)
+                        y = np.floor(y + 0.5)
+                        previousX = x
+                        previousY = y
                         
                         mouse.move(x, y, client)
 

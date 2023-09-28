@@ -13,8 +13,8 @@ def read_config():
     }
     config['ip'] = configFile.get('network', 'ip')
     config['port'] = int(configFile.get('network', 'port'))
-    
-    if configFile.get('screen', 'color') == 'g':
+    color = configFile.get('screen', 'color')
+    if color == 'g':
         config['upper_color'] = np.array([63,255,255])
         config['lower_color'] = np.array([58,210,80])
     else:
@@ -23,6 +23,7 @@ def read_config():
 
     config['fov'] = int(configFile.get('screen', 'fov'))
     config['offset'] = int(configFile.get('aim', 'offset'))
+    config['smooth'] = float(configFile.get('aim', 'smooth'))
     config['speed'] = float(configFile.get('aim', 'speed'))
     config['xMultiplier'] = float(configFile.get('aim', 'xMultiplier'))
     config['recoilX'] = float(configFile.get('recoil', 'recoilX'))
@@ -39,9 +40,10 @@ def read_config():
 
     print(f"""Config: 
 - Network: {config['ip']}:{config['port']}
-- Color: LOWER: {config['lower_color']}, UPPER: {config['upper_color']}
+- Color: {color} LOWER: {config['lower_color']}, UPPER: {config['upper_color']}
 - FOV: {config['fov']}
 - Offset: {config['offset']}
+- Smooth: {config['smooth']}
 - Speed: {config['speed']}
 - xMultiplier: {config['xMultiplier']}
 - Recoil: ({config['recoilX']}, {config['recoilY']})
