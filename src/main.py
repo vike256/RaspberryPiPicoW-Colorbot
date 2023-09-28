@@ -15,13 +15,6 @@ def main():
 
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    if config['color'] == 'g':
-        upper_color = np.array([63,255,255])
-        lower_color = np.array([58,210,80])
-    else:
-        upper_color = np.array([164,255,255])
-        lower_color = np.array([144,210,80])
-
     print("Connecting...")
 
     try:
@@ -30,11 +23,11 @@ def main():
 
         while True:
             config = keybinds.check(config)
+            
+            contours, thresh = screen.screengrab(config['sct'], config['screenshot'], config['lower_color'], config['upper_color'])
 
             # AIM if mouse left or right down
             if config['toggleAim'] and (wapi.GetAsyncKeyState(key['lbutton']) < 0 or wapi.GetAsyncKeyState(key['rbutton']) < 0):
-                contours = screen.screengrab(config['sct'], config['screenshot'], lower_color, upper_color)
-
                 if len(contours) != 0:
                     closest_contour = screen.get_closest_target(contours, config['center'])
                 
@@ -52,6 +45,13 @@ def main():
             # RECOIL
             if config['toggleRecoil'] and wapi.GetAsyncKeyState(key['lbutton']) < 0:
                 mouse.move(config['recoilX'], config['recoilY'], client)
+
+            if config ['toggleTriggerbot']:
+                value = 8
+                if thresh[config['center'][0] + value, config['center'][1]] == 255:
+                    if thresh[config['center'][0] - value, config['center'][1]] == 255:
+                        if thresh[config['center'][0], config['center'][1] - value] == 255:
+                            mouse.click(client)
             
             sleep(0.001)     
 

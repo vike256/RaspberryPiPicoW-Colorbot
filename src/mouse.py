@@ -22,7 +22,21 @@ def click(client):
     # Raspberry checks the first character to check if the instruction is to move (M) or click (C)
     command = "C\r"
     client.sendall(command.encode())
-    print("SENT:Click", end='')
+    print("SENT: Click", end='')
+    waitForResponse(client)
+
+def press(client):
+    # Raspberry checks the first character to check if the instruction is to move (M) or click (C)
+    command = "B1\r"
+    client.sendall(command.encode())
+    print("SENT: LButton down", end='')
+    waitForResponse(client)
+
+def release(client):
+    # Raspberry checks the first character to check if the instruction is to move (M) or click (C)
+    command = "B0\r"
+    client.sendall(command.encode())
+    print("SENT: LButton up", end='')
     waitForResponse(client)
 
 

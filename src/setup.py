@@ -1,6 +1,7 @@
 import configparser
 from mss import mss
 from key import key
+import numpy as np
 
 def read_config():
     configFile = configparser.ConfigParser()
@@ -12,7 +13,14 @@ def read_config():
     }
     config['ip'] = configFile.get('network', 'ip')
     config['port'] = int(configFile.get('network', 'port'))
-    config['color'] = configFile.get('screen', 'color')
+    
+    if configFile.get('screen', 'color') == 'g':
+        config['upper_color'] = np.array([63,255,255])
+        config['lower_color'] = np.array([58,210,80])
+    else:
+        config['upper_color'] = np.array([164,255,255])
+        config['lower_color'] = np.array([144,210,80])
+
     config['fov'] = int(configFile.get('screen', 'fov'))
     config['offset'] = int(configFile.get('aim', 'offset'))
     config['speed'] = float(configFile.get('aim', 'speed'))
@@ -31,7 +39,7 @@ def read_config():
 
     print(f"""Config: 
 - Network: {config['ip']}:{config['port']}
-- Color: {config['color']}
+- Color: LOWER: {config['lower_color']}, UPPER: {config['upper_color']}
 - FOV: {config['fov']}
 - Offset: {config['offset']}
 - Speed: {config['speed']}

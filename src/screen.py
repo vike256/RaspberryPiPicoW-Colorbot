@@ -9,7 +9,7 @@ def screengrab(sct, screenshot, lower_color, upper_color):
     dilated = cv2.dilate(mask, kernel, iterations=5)
     thresh = cv2.threshold(dilated, 60, 255, cv2.THRESH_BINARY)[1]
     contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-    return contours
+    return contours, thresh
 
 
 def get_closest_target(contours, center):
