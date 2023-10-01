@@ -24,6 +24,9 @@ def main():
         print("Connected")
 
         while True:
+            x = 0
+            y = 0
+            
             config = keybinds.check(config)
             
             contours, thresh = screen.screengrab(config['sct'], config['screenshot'], config['lower_color'], config['upper_color'])
@@ -45,16 +48,13 @@ def main():
                         #Smoothing
                         x = previousX + config['smooth'] * (x - previousX)
                         y = previousY + config['smooth'] * (y - previousY)
-                        x = np.floor(x + 0.5)
-                        y = np.floor(y + 0.5)
                         previousX = x
                         previousY = y
-                        
-                        mouse.move(x, y, client)
 
             # RECOIL
             if config['toggleRecoil'] and wapi.GetAsyncKeyState(key['lbutton']) < 0:
-                mouse.move(config['recoilX'], config['recoilY'], client)
+                x += config['recoilX']
+                y += config['recoilY']
 
             if config ['toggleTriggerbot']:
                 value = 8
@@ -62,6 +62,8 @@ def main():
                     if thresh[config['center'][0] - value, config['center'][1]] == 255:
                         if thresh[config['center'][0], config['center'][1] - value] == 255:
                             mouse.click(client)
+
+            mouse.move(x, y, client)
             
             sleep(0.001)     
 

@@ -2,6 +2,9 @@ import time
 import numpy as np
 
 def move(x, y, client):
+    x = np.floor(x + 0.5)
+    y = np.floor(y + 0.5)
+
     if x != 0 or y != 0:
         # Mouse.Move takes char (8 bits) as input
         # 8bit signed value range is from -128 to 127

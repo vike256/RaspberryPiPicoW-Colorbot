@@ -13,13 +13,15 @@ def read_config():
     }
     config['ip'] = configFile.get('network', 'ip')
     config['port'] = int(configFile.get('network', 'port'))
-    color = configFile.get('screen', 'color')
-    if color == 'g':
-        config['upper_color'] = np.array([63,255,255])
-        config['lower_color'] = np.array([58,210,80])
-    else:
-        config['upper_color'] = np.array([164,255,255])
-        config['lower_color'] = np.array([144,210,80])
+
+    upper_color = configFile.get('screen', 'upper_color').split(',')
+    lower_color = configFile.get('screen', 'lower_color').split(',')
+    for i in range(0, 3):
+        upper_color[i] = int(upper_color[i].strip())
+    for i in range(0, 3):
+        lower_color[i] = int(lower_color[i].strip())
+    config['upper_color'] = np.array(upper_color)
+    config['lower_color'] = np.array(lower_color)
 
     config['fov'] = int(configFile.get('screen', 'fov'))
     config['offset'] = int(configFile.get('aim', 'offset'))
@@ -40,7 +42,7 @@ def read_config():
 
     print(f"""Config: 
 - Network: {config['ip']}:{config['port']}
-- Color: {color} LOWER: {config['lower_color']}, UPPER: {config['upper_color']}
+- Color: LOWER: {config['lower_color']}, UPPER: {config['upper_color']}
 - FOV: {config['fov']}
 - Offset: {config['offset']}
 - Smooth: {config['smooth']}
